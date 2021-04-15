@@ -1,0 +1,42 @@
+<html>
+<head>
+<!-- <meta http-equiv=Content-Security-Policy content="default-src 'self' 'unsafe-inline'"> -->
+<meta charset="utf-8">
+<style>
+#l {
+	width: 50%;
+	background-color: #753;
+	color: #fff;
+	padding: 2em;
+}
+</style>
+</head>
+<body>
+<pre id="l">
+Test de connexion de websocket
+</pre>
+<script type="application/javascript">
+let $=(o)=>document.querySelector(o);
+
+window.addEventListener('load', () => {
+	let l = $('#l');
+	var conn = new WebSocket('ws://f-mo.eu:8080')
+
+	conn.addEventListener('open', (e) => {
+		console.log('connexion ouverte');
+		conn.send('message test :-)');
+		l.innerText += '\nConnexion ouverte';
+	});
+
+	conn.addEventListener('message', (msg) => {
+		console.log('message: ' + msg);
+		l.innerText += '\nMessage reçu: ' + msg;
+	});
+
+	conn.addEventListener('close', (event) => {});
+
+});
+</script>
+</body>
+</html>
+
